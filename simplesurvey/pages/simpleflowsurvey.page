@@ -1,0 +1,4 @@
+<apex:page showHeader="false" sidebar="false">
+  <flow:interview name="Simple_Survey" />
+<c:surveystarrating />
+</apex:page>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <dynamicChoiceSets>
+        <name>SurveyRating</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>Rating__c</picklistField>
+        <picklistObject>Survey__c</picklistObject>
+    </dynamicChoiceSets>
+    <interviewLabel>Simple Survey {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Simple Survey</label>
+    <processType>Flow</processType>
+    <recordCreates>
+        <name>Create_Survey</name>
+        <label>Create Survey</label>
+        <locationX>165</locationX>
+        <locationY>164</locationY>
+        <connector>
+            <targetReference>Thank_You_message</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>Comment__c</field>
+            <value>
+                <elementReference>Comment</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Rating__c</field>
+            <value>
+                <elementReference>Rating</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Survey__c</object>
+    </recordCreates>
+    <screens>
+        <name>Survey_Screen</name>
+        <label>Survey Screen</label>
+        <locationX>163</locationX>
+        <locationY>53</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>Create_Survey</targetReference>
+        </connector>
+        <fields>
+            <name>q1</name>
+            <fieldText>&lt;DIV ALIGN=&quot;LEFT&quot;&gt;&lt;FONT FACE=&quot;Arial&quot; STYLE=&quot;font-size:12px&quot; COLOR=&quot;#000000&quot; LETTERSPACING=&quot;0&quot; KERNING=&quot;0&quot;&gt;&lt;B&gt;Please give your feedback.&lt;/B&gt;&lt;/FONT&gt;&lt;/DIV&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>Comment</name>
+            <fieldText>Comment</fieldText>
+            <fieldType>LargeTextArea</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>Rating</name>
+            <choiceReferences>SurveyRating</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>Rating</fieldText>
+            <fieldType>RadioButtons</fieldType>
+            <isRequired>false</isRequired>
+        </fields>
+    </screens>
+    <screens>
+        <name>Thank_You_message</name>
+        <label>Thank You message</label>
+        <locationX>164</locationX>
+        <locationY>284</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>thankyoumessage</name>
+            <fieldText>Thanks for your feedback.</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+    </screens>
+    <startElementReference>Survey_Screen</startElementReference>
+</Flow>

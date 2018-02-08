@@ -1,0 +1,47 @@
+<apex:component >
+  <apex:stylesheet value="{!URLFOR($Resource.starrating, 'style.css')}"/>
+  <apex:includeScript value="{!URLFOR($Resource.starrating, 'jquery-1.12.4.js')}"/>
+  <script>
+    $(document).ready(function(){
+        $( ".interviewFormChoicesWithHelp" ).append("<span></span>");
+        
+        $(".interviewFormChoicesWithHelp").each(function(){
+            var radioes = $(this).find('input[type="radio"]');
+            var count = 1;
+            $(radioes).each(function(){
+                $(this).addClass("star-"+count);
+                var elmId = $(this).attr("id");
+                $("label[for*='" + elmId + "']").addClass("star-"+count);
+                count++;
+                markRating(this);
+            });
+        });
+        
+        $('.interviewFormChoicesWithHelp input[type="radio"]').change(function(){
+            markRating(this);
+        });        
+       
+    });
+    
+    function markRating(radioelm){
+        var elmId = $(radioelm).attr("id");
+        var splitlst = elmId.split(".");
+        
+        var clikedInputId = splitlst[0]+ ".input";        
+        
+        var divelm = document.getElementById(clikedInputId);
+        
+        if($(radioelm).hasClass("star-1") && $(radioelm).prop("checked")){                
+            $(divelm).find("span").css("width","20%");
+        }else if($(radioelm).hasClass("star-2") && $(radioelm).prop("checked")){
+            $(divelm).find("span").css("width","40%");
+        }else if($(radioelm).hasClass("star-3") && $(radioelm).prop("checked")){
+            $(divelm).find("span").css("width","60%");
+        }else if($(radioelm).hasClass("star-4") && $(radioelm).prop("checked")){
+            $(divelm).find("span").css("width","80%");
+        }else if($(radioelm).hasClass("star-5") && $(radioelm).prop("checked")){
+            $(divelm).find("span").css("width","100%");
+        }
+    }
+</script>
+</apex:component>
